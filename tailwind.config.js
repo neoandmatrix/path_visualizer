@@ -22,13 +22,13 @@ export default {
           "0%" : {
             transform : "scale(0.3)",
             backgroundColor : "#9333eabf",
-            bordrRadius : "100%"
+            borderRadius : "100%"
           },
           "50%" : {
             backgroundColor : "#4f46e5bf",
           },
           "75%" : {
-            tansform : "scale(1.2)",
+            transform : "scale(1.2)",
             backgroundColor : "#3b82f6bf",
           },
           "100%" : {
@@ -50,7 +50,7 @@ export default {
             transform : "scale(1.2)"
           },
           "90%" : {
-            tansform : "scale(0.8)",
+            transform : "scale(0.8)",
             backgroundColor : "#fde68a"
           },
           "100%" :{

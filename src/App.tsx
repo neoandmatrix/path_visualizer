@@ -8,6 +8,7 @@ import { Nav } from "./components/Nav"
 function App() {
 
   const isVisualizationRunningRef = useRef<boolean>(false);
+  const isChangeStartSelectedRef = useRef<boolean>(false);
 
   return (
     <>
@@ -15,8 +16,8 @@ function App() {
         <TileProvider>
           <PathfindingProvider>
             <div className="h-screen w-screen flex flex-col">
-              <Nav isVisualizationRunningRef = {isVisualizationRunningRef}/>
-              <Grid isVisualizationRunningRef = {isVisualizationRunningRef} />
+              <Nav isVisualizationRunningRef = {isVisualizationRunningRef} isChangeStartSelectedRef={isChangeStartSelectedRef}/>
+              <Grid isVisualizationRunningRef = {isVisualizationRunningRef} isChangeStartSelectedRef={isChangeStartSelectedRef} />
             </div>
           </PathfindingProvider>
         </TileProvider>

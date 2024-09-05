@@ -15,7 +15,8 @@ export function Tile ({
     isPath,
     handleMouseDown,
     handleMouseUp,
-    handleMouseEnter
+    handleMouseEnter,
+    handleMouseClick
 }:{
     row : number,
     col : number,
@@ -27,6 +28,7 @@ export function Tile ({
     handleMouseDown : MouseFunction,
     handleMouseUp : MouseFunction,
     handleMouseEnter : MouseFunction,
+    handleMouseClick : MouseFunction
 }){
 
     let tileTypeStyle;
@@ -51,6 +53,7 @@ export function Tile ({
         <div className={twMerge(tileTypeStyle,borderStyle,edgeStyle)} id={`${row}-${col}`}
         onMouseDown={() => handleMouseDown(row,col)}
         onMouseEnter={()=>handleMouseEnter(row,col)}
-        onMouseUp={()=>handleMouseUp(row,col)}></div>
+        onMouseUp={()=>handleMouseUp(row,col)}
+        onClick={()=>{handleMouseClick(row,col)}}></div>
     )
 }

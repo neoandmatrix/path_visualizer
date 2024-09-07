@@ -3,25 +3,36 @@ import { usePathFinding } from "../hooks/usePathFinding";
 import { MAX_COLS, MAX_ROWS } from "../utils/constants";
 import { Tile } from "./Tile";
 import { MutableRefObject, useState } from "react";
-import { checkIfStartOrEnd, createNewGrid, resetCurrentStart, setNewStartTile } from "../utils/helpers";
+import {
+  checkIfStartOrEnd,
+  createNewGrid,
+  resetCurrentEnd,
+  resetCurrentStart,
+  setNewEndTile,
+  setNewStartTile,
+} from "../utils/helpers";
 import { useTile } from "../hooks/useTile";
 
 export function Grid({
   isVisualizationRunningRef,
   isChangeStartSelectedRef,
+  isChangeEndSelectedRef,
 }: {
   isVisualizationRunningRef: MutableRefObject<boolean>;
   isChangeStartSelectedRef: MutableRefObject<boolean>;
+  isChangeEndSelectedRef: MutableRefObject<boolean>;
 }) {
   const { grid, setGrid } = usePathFinding();
   const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
-  const {startTile,setStartTile} = useTile();
+  const { startTile, setStartTile, endTile, setEndTile } = useTile();
+  
 
   const handleMouseDown = (row: number, col: number) => {
     if (
       isVisualizationRunningRef.current ||
       checkIfStartOrEnd(row, col) ||
-      isChangeStartSelectedRef.current
+      isChangeStartSelectedRef.current ||
+      isChangeEndSelectedRef.current
     ) {
       return;
     }
@@ -35,7 +46,8 @@ export function Grid({
     if (
       isVisualizationRunningRef.current ||
       checkIfStartOrEnd(row, col) ||
-      isChangeStartSelectedRef.current
+      isChangeStartSelectedRef.current ||
+      isChangeEndSelectedRef.current
     ) {
       return;
     }
@@ -47,7 +59,8 @@ export function Grid({
     if (
       isVisualizationRunningRef.current ||
       checkIfStartOrEnd(row, col) ||
-      isChangeStartSelectedRef.current
+      isChangeStartSelectedRef.current ||
+      isChangeEndSelectedRef.current
     ) {
       return;
     }
@@ -59,14 +72,19 @@ export function Grid({
   };
 
   const handleMouseClick = (row: number, col: number) => {
-    if (!isChangeStartSelectedRef.current) {
-      return;
+    if (isChangeStartSelectedRef.current ) {
+      const newSelectedStartTile = setNewStartTile(grid, row, col);
+      setGrid(newSelectedStartTile);
+      setGrid(resetCurrentStart(grid, startTile, row, col, setStartTile));
+      isChangeStartSelectedRef.current = false;
+      //setIsDisabled(false);
     }
-    
-    const newSelectedStartTile = setNewStartTile(grid,row,col);
-    setGrid(newSelectedStartTile);
-    setGrid(resetCurrentStart(grid,startTile,row,col,setStartTile))
-    isChangeStartSelectedRef.current = false
+    if (isChangeEndSelectedRef.current) {
+      setGrid(setNewEndTile(grid, row, col));
+      setGrid(resetCurrentEnd(grid, endTile, row, col, setEndTile));
+      isChangeEndSelectedRef.current = false;
+     // setIsDisabled(false);
+    }
   };
 
   return (
@@ -102,7 +120,7 @@ export function Grid({
                 handleMouseDown={() => handleMouseDown(row, col)}
                 handleMouseUp={() => handleMouseUp(row, col)}
                 handleMouseEnter={() => handleMouseEnter(row, col)}
-                handleMouseClick={()=>handleMouseClick(row,col)}
+                handleMouseClick={() => handleMouseClick(row, col)}
               />
             );
           })}

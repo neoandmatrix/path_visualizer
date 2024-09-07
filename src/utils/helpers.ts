@@ -62,6 +62,24 @@ export const resetCurrentStart = (
   return newGrid;
 };
 
+export const resetCurrentEnd = (
+  grid: GridType,
+  currentEndTile: TileType,
+  row: number,
+  col: number,
+  setEndTile: (endTile: TileType) => void
+) => {
+  const newGrid = grid.slice();
+  const newTile = {
+    ...newGrid[currentEndTile.row][currentEndTile.col],
+    isEnd: !newGrid[currentEndTile.row][currentEndTile.col].isEnd,
+  };
+  newGrid[currentEndTile.row][currentEndTile.col] = newTile;
+  setEndTile({ ...currentEndTile, row: row, col: col });
+  return newGrid;
+};
+
+
 export const setNewStartTile = (
   grid: GridType,
   row: number,
@@ -75,6 +93,21 @@ export const setNewStartTile = (
   newGrid[row][column] = newTile;
   return newGrid;
 };
+
+export const setNewEndTile = (
+  grid: GridType,
+  row: number,
+  column: number
+) => {
+  const newGrid = grid.slice();
+  const newTile = {
+    ...newGrid[row][column],
+    isEnd: !newGrid[row][column].isEnd,
+  };
+  newGrid[row][column] = newTile;
+  return newGrid;
+};
+
 export const isEqual = (a: TileType, b: TileType) => {
   return a.row === b.row && a.col === b.col;
 };

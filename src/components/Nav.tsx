@@ -18,15 +18,18 @@ import { runPathFindingAlgorithm } from "../utils/runPathFindingAlgorithm";
 import { animatePath } from "../utils/animatePath";
 import { ChangeStartOrEndPositionButton } from "./SelectButton";
 import { selectStart } from "../utils/selectStart";
+import { selectEnd } from "../utils/selectEnd";
 
 export function Nav({
   isVisualizationRunningRef,
-  isChangeStartSelectedRef
+  isChangeStartSelectedRef,
+  isChangeEndSelectedRef,
 }: {
   isVisualizationRunningRef: MutableRefObject<boolean>;
-  isChangeStartSelectedRef : MutableRefObject<boolean>;
+  isChangeStartSelectedRef: MutableRefObject<boolean>;
+  isChangeEndSelectedRef: MutableRefObject<boolean>;
 }) {
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);;
   const {
     grid,
     maze,
@@ -88,6 +91,7 @@ export function Nav({
           <Select
             label="Maze"
             value={maze}
+            isDisabled={isDisabled}
             options={MAZES}
             onChange={(e) => {
               handleGenerateMaze(e.target.value as MazeType);
@@ -96,6 +100,7 @@ export function Nav({
           <Select
             label="Graph"
             value={algorithm}
+            isDisabled={isDisabled}
             options={PATHFINDING_ALGORITHMS}
             onChange={(e) => {
               setAlgorithm(e.target.value as AlgorithmType);
@@ -105,6 +110,7 @@ export function Nav({
           <Select
             label="Speed"
             value={speed}
+            isDisabled={isDisabled}
             options={SPEEDS}
             onChange={(e) => {
               setSpeed(parseInt(e.target.value) as SpeedType);
@@ -115,7 +121,20 @@ export function Nav({
             value="Select Start"
             isDisabled={isDisabled}
             onClick={async () => {
-              await selectStart(grid, startTile, endTile,isChangeStartSelectedRef);
+              await selectStart(
+                grid,
+                startTile,
+                endTile,
+                isChangeStartSelectedRef
+              );
+            }}
+          ></ChangeStartOrEndPositionButton>
+          <ChangeStartOrEndPositionButton
+            lable="Select End"
+            value="Change End"
+            isDisabled={isDisabled}
+            onClick={async () => {
+              await selectEnd(grid, startTile, endTile, isChangeEndSelectedRef);
             }}
           ></ChangeStartOrEndPositionButton>
           <PlayButton

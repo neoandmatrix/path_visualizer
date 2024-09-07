@@ -2,14 +2,12 @@ import { MutableRefObject } from "react";
 import { constructBorder } from "./constructBorder";
 import { GridType, TileType } from "./types";
 
-export async function selectStart(
+export async function selectEnd(
   grid: GridType,
   startTile: TileType,
   endTile: TileType,
-  isChangeStartSelectedRef: MutableRefObject<boolean>
+  isChangeEndSelectedRef: MutableRefObject<boolean>
 ) {
-  // const {setIsDisabled} = useDisableButtons();
-  // setIsDisabled(true);
-  isChangeStartSelectedRef.current = true;
+  isChangeEndSelectedRef.current = true;
   await constructBorder(grid, startTile, endTile);
 }

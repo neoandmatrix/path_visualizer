@@ -19,6 +19,7 @@ import { animatePath } from "../utils/animatePath";
 import { ChangeStartOrEndPositionButton } from "./SelectButton";
 import { selectStart } from "../utils/selectStart";
 import { selectEnd } from "../utils/selectEnd";
+import { useDisableButtons } from "../hooks/useDisableButton";
 
 export function Nav({
   isVisualizationRunningRef,
@@ -29,7 +30,7 @@ export function Nav({
   isChangeStartSelectedRef: MutableRefObject<boolean>;
   isChangeEndSelectedRef: MutableRefObject<boolean>;
 }) {
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);;
+  const {isDisabled,setIsDisabled} = useDisableButtons();
   const {
     grid,
     maze,

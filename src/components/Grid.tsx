@@ -25,7 +25,6 @@ export function Grid({
   const { grid, setGrid } = usePathFinding();
   const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
   const { startTile, setStartTile, endTile, setEndTile } = useTile();
-  
 
   const handleMouseDown = (row: number, col: number) => {
     if (
@@ -72,18 +71,23 @@ export function Grid({
   };
 
   const handleMouseClick = (row: number, col: number) => {
-    if (isChangeStartSelectedRef.current ) {
+    if (isChangeStartSelectedRef.current) {
       const newSelectedStartTile = setNewStartTile(grid, row, col);
-      setGrid(newSelectedStartTile);
-      setGrid(resetCurrentStart(grid, startTile, row, col, setStartTile));
-      isChangeStartSelectedRef.current = false;
+      if (newSelectedStartTile != undefined) {
+        setGrid(newSelectedStartTile);
+        setGrid(resetCurrentStart(grid, startTile, row, col, setStartTile));
+        isChangeStartSelectedRef.current = false;
+      }
       //setIsDisabled(false);
     }
     if (isChangeEndSelectedRef.current) {
-      setGrid(setNewEndTile(grid, row, col));
-      setGrid(resetCurrentEnd(grid, endTile, row, col, setEndTile));
-      isChangeEndSelectedRef.current = false;
-     // setIsDisabled(false);
+      const newSelectedEndTile = setNewEndTile(grid, row, col);
+      if (newSelectedEndTile != undefined) {
+        setGrid(newSelectedEndTile);
+        setGrid(resetCurrentEnd(grid, endTile, row, col, setEndTile));
+        isChangeEndSelectedRef.current = false;
+      }
+      // setIsDisabled(false);
     }
   };
 

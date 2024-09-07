@@ -86,6 +86,9 @@ export const setNewStartTile = (
   column: number
 ) => {
   const newGrid = grid.slice();
+  if (newGrid[row][column].isWall) {
+    return ;
+  }
   const newTile = {
     ...newGrid[row][column],
     isStart: !newGrid[row][column].isStart,
@@ -100,6 +103,9 @@ export const setNewEndTile = (
   column: number
 ) => {
   const newGrid = grid.slice();
+  if (newGrid[row][column].isWall) {
+    return ;
+  }
   const newTile = {
     ...newGrid[row][column],
     isEnd: !newGrid[row][column].isEnd,

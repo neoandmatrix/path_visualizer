@@ -8,8 +8,6 @@ export async function selectStart(
   endTile: TileType,
   isChangeStartSelectedRef: MutableRefObject<boolean>
 ) {
-  // const {setIsDisabled} = useDisableButtons();
-  // setIsDisabled(true);
   isChangeStartSelectedRef.current = true;
   await constructBorder(grid, startTile, endTile);
 }

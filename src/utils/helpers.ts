@@ -1,4 +1,4 @@
-import { MAX_COLS, MAX_ROWS } from "./constants";
+import { END_TILE_CONFIGURATION, MAX_COLS, MAX_ROWS } from "./constants";
 import { GridType, TileType } from "./types";
 
 const createRow = (row: number, startTile: TileType, endTile: TileType) => {
@@ -142,3 +142,8 @@ export const dropFromQueue = (tile: TileType, queue: TileType[]) => {
     }
   }
 };
+
+export const getEulerDistance = (tile : TileType) => {
+  const distance = Math.sqrt(Math.pow((END_TILE_CONFIGURATION.row-tile.row),2)+Math.pow((END_TILE_CONFIGURATION.col-tile.col),2))
+  return parseFloat(distance.toFixed(2))
+}

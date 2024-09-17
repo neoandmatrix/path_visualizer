@@ -1,3 +1,4 @@
+import { aStar } from "../lib/algorithms/pathfinding/aStar";
 import { bfs } from "../lib/algorithms/pathfinding/bfs";
 import { dfs } from "../lib/algorithms/pathfinding/dfs";
 import { djkistra } from "../lib/algorithms/pathfinding/djkistra";
@@ -20,7 +21,9 @@ export const runPathFindingAlgorithm = ({
         case 'DFS':
             return dfs(grid,startTile,endTile);
         case 'DJISKSTRA':
-            return djkistra(grid,startTile,endTile);      
+            return djkistra(grid,startTile,endTile);
+        case 'A_STAR':
+            return aStar(grid,startTile,endTile);          
     
         default:
             return bfs(grid,startTile,endTile);

@@ -135,6 +135,7 @@ export function Nav({
             value="Change End"
             isDisabled={isDisabled}
             onClick={async () => {
+              console.log("active")
               await selectEnd(grid, startTile, endTile, isChangeEndSelectedRef);
             }}
           ></ChangeStartOrEndPositionButton>
